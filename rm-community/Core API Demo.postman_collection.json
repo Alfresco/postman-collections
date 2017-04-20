@@ -1,0 +1,1047 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GS API Demo",
+		"_postman_id": "8b50ffbe-d121-b5a8-7549-9a449e03f03f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01 RM Site",
+			"description": "",
+			"item": [
+				{
+					"name": "01-Create IG Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/gs-sites",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Records Management Title\",\n  \"description\": \"Records Management Description\"\n}"
+						},
+						"description": "Create IG Site"
+					},
+					"response": []
+				},
+				{
+					"name": "02-Get IG Site Details",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/gs-sites/{{ig.site.id}}",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Records Management Title\",\n  \"description\": \"Records Management Description\"\n}"
+						},
+						"description": "List Fileplan Categories"
+					},
+					"response": []
+				},
+				{
+					"name": "03-Update IG Site",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/gs-sites/{{ig.site.id}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"New Records Management Title\",\n  \"description\": \"New Records Management Description\"\n}"
+						},
+						"description": "Update IG Site Detauls"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "02 File Plans",
+			"description": "Retrieve and manage file plans",
+			"item": [
+				{
+					"name": "04-Get Fileplan Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.fileplan.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/file-plans/{{ig.fileplan.alias}}?fields=id",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Records Management Title\",\n  \"description\": \"Records Management Description\"\n}"
+						},
+						"description": "Get Fileplan Id using its alias"
+					},
+					"response": []
+				},
+				{
+					"name": "05-Create Root Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.root.category.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/file-plans/{{ig.fileplan.alias}}/categories",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"New Record Category\"\n}"
+						},
+						"description": "Create Record Category"
+					},
+					"response": []
+				},
+				{
+					"name": "06-List Root Record Categories",
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/file-plans/{{ig.fileplan.alias}}/categories",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Record Category 2\"\n}"
+						},
+						"description": "Get IG Site Details"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "03 Record Categories",
+			"description": "Retrieve and manage record categories APIs",
+			"item": [
+				{
+					"name": "07-Create Subcategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.subcategory.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.root.category.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"New Subcategory\",\n  \"nodeType\":\"rma:recordCategory\"\n}"
+						},
+						"description": "Create Record Category"
+					},
+					"response": []
+				},
+				{
+					"name": "08-Create 2nd Level Subcategory",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.second.subcategory.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.subcategory.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Subcategory of subcategory\",\n  \"nodeType\":\"rma:recordCategory\"\n}"
+						},
+						"description": "Create Record Category"
+					},
+					"response": []
+				},
+				{
+					"name": "09-Create Folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.folder.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.subcategory.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Folder In Subcategory\",\n  \"nodeType\":\"rma:recordFolder\"\n}"
+						},
+						"description": "Create Record Folder"
+					},
+					"response": []
+				},
+				{
+					"name": "10-Create (another) Folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.another.folder.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.subcategory.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Another Folder In Subcategory\",\n  \"nodeType\":\"rma:recordFolder\"\n}"
+						},
+						"description": "Create Record Folder"
+					},
+					"response": []
+				},
+				{
+					"name": "11-List Record Category children",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.subcategory.id}}/children",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Folder In Subcategory\",\n  \"nodeType\":\"rma:recordFolder\"\n}"
+						},
+						"description": "List Record Category children"
+					},
+					"response": []
+				},
+				{
+					"name": "12-Delete Record Category",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-categories/{{ig.second.subcategory.id}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"New Subcategory\",\n  \"nodeType\":\"rma:recordCategory\"\n}"
+						},
+						"description": "Delete 2nd Level Subcategory"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "04 Record Folders",
+			"description": "Retrieve and manage record folders",
+			"item": [
+				{
+					"name": "13-File Non-Electronic Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.non-electronic.record.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-folders/{{ig.folder.id}}/records",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Non-Electronic Record\",\n  \"nodeType\":\"rma:nonElectronicDocument\",\n  \"properties\":\n    {\n      \"cm:description\":\"My Non-electronic Record Description\",\n      \"cm:title\":\"My Non-electronic Record Title\",\n      \"rma:box\":\"My Non-electronic Record Box\",\n      \"rma:file\":\"My Non-electronic Record File\",\n      \"rma:numberOfCopies\":1,\n      \"rma:physicalSize\":30,\n      \"rma:shelf\":\"My Non-electronic Record Shelf\",\n      \"rma:storageLocation\":\"My Non-electronic Record Location\"\n    }\n}"
+						},
+						"description": "File Non-Electronic Record in folder"
+					},
+					"response": []
+				},
+				{
+					"name": "14-File Empty Electronic Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.empty.electronic.record.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-folders/{{ig.folder.id}}/records",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Empty Electronic Record\",\n  \"nodeType\":\"cm:content\"\n}"
+						},
+						"description": "File Non-Electronic Record in folder"
+					},
+					"response": []
+				},
+				{
+					"name": "15-File Non-Empty Electronic Record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.electronic.record.id\", jsonData.entry.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-folders/{{ig.folder.id}}/records",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Non-Empty Electronic Record",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "nodeType",
+									"value": "cm:content",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "filedata",
+									"type": "file",
+									"enabled": true,
+									"src": "20160403_132759.jpg"
+								}
+							]
+						},
+						"description": "File Non-Electronic Record in folder"
+					},
+					"response": []
+				},
+				{
+					"name": "16-List Records in record folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-folders/{{ig.folder.id}}/records",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Non-Empty Electronic Record",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "nodeType",
+									"value": "cm:content",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "filedata",
+									"type": "file",
+									"enabled": true,
+									"src": "Clara's Swimming Progress.pdf"
+								}
+							]
+						},
+						"description": "List records (electronic and non-electronic) in a record folder"
+					},
+					"response": []
+				},
+				{
+					"name": "17-Delete Record Folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									"",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/record-folders/{{ig.another.folder.id}}",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Non-Empty Electronic Record",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "nodeType",
+									"value": "cm:content",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "filedata",
+									"type": "file",
+									"enabled": true,
+									"src": "Clara's Swimming Progress.pdf"
+								}
+							]
+						},
+						"description": "Delete pre-existing Record Folder"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "05 Unfiled Records Containers and Folders",
+			"description": "Retrieve and manage unfiled records containers",
+			"item": [
+				{
+					"name": "18-Create Unfiled Records folder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.unfiled.folder.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/unfiled-containers/-unfiled-/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Unfiled Record Folder\",\n  \"nodeType\": \"rma:unfiledRecordFolder\",\n  \"properties\":\n  {\n    \"cm:title\": \"Unfiled Record Folder Title\"\n  }\n}"
+						},
+						"description": "Unfiled Records folder"
+					},
+					"response": []
+				},
+				{
+					"name": "19-Create Unfiled Records subfolder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.unfiled.subfolder.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/unfiled-record-folders/{{ig.unfiled.folder.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Unfiled Records Subfolder\",\n  \"nodeType\":\"rma:unfiledRecordFolder\"\n}"
+						},
+						"description": "Create Unfiled Records subfolder"
+					},
+					"response": []
+				},
+				{
+					"name": "20-Declare Non-Electronic Record in Unfiled Records root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.unfiled.empty.non-electronic.record.id\", jsonData.entry.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/unfiled-containers/-unfiled-/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Non-electronic Record\",\n  \"nodeType\":\"rma:nonElectronicDocument\",\n  \"properties\":\n    {\n      \"cm:description\":\"Non-electronic Record Description\",\n      \"cm:title\":\"Non-electronic Record Title\",\n      \"rma:box\":\"Non-electronic Record Box\",\n      \"rma:file\":\"Non-electronic Record File\",\n      \"rma:numberOfCopies\":1,\n      \"rma:physicalSize\":30,\n      \"rma:shelf\":\"Non-electronic Record Shelf\",\n      \"rma:storageLocation\":\"Non-electronic Record Location\"\n    }\n}"
+						},
+						"description": "Declare Non-Electronic Record in Unfiled Records root"
+					},
+					"response": []
+				},
+				{
+					"name": "21-Declare Non-Empty Electronic Record in Unfiled Records subfolder",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setGlobalVariable(\"ig.unfiled.electronic.record.id\", jsonData.entry.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/unfiled-record-folders/{{ig.unfiled.subfolder.id}}/children",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Non-Empty Electronic Record",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "nodeType",
+									"value": "cm:content",
+									"type": "text",
+									"enabled": true
+								},
+								{
+									"key": "filedata",
+									"type": "file",
+									"enabled": true,
+									"src": "rivermead.txt"
+								}
+							]
+						},
+						"description": "Declare Non-Empty Electronic Record in Unfiled Records subfolder"
+					},
+					"response": []
+				},
+				{
+					"name": "21-List Unfiled Records root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/unfiled-containers/-unfiled-/children",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"Record Category 2\"\n}"
+						},
+						"description": "List Unfiled Records root"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "06 Records",
+			"description": "Perform record specific operations",
+			"item": [
+				{
+					"name": "22-Rename and update Non-Electronic Record in Unfiled Records root",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Name is updated\"] = jsonData.entry.name === \"New Non-electronic Name\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/records/{{ig.unfiled.empty.non-electronic.record.id}}",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\":\"New Non-electronic Name\",\n  \"properties\": {\n  \t\"rma:physicalSize\": 42,\n  \t\"cm:title\": \"Non-Electronic Record formerly unfiled\",\n  \t\"cm:description\": \"This is a non-electronic record that started its life as an unfiled record\"\n  }\n}\n"
+						},
+						"description": "Rename and update Non-Electronic Record in Unfiled Records root"
+					},
+					"response": []
+				},
+				{
+					"name": "23-File record from Unfiled Records",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"",
+									"//var jsonData = JSON.parse(responseBody);",
+									"//postman.setGlobalVariable(\"ig.unfiled.electronic.record.id\", jsonData.entry.id);",
+									""
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/records/{{ig.unfiled.electronic.record.id}}/file",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Basic YWRtaW46YWRtaW4=",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"targetParentId\": \"{{ig.folder.id}}\"\n}"
+						},
+						"description": "File a record from Unfiled Records folder into a record folder"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "99-Delete GS Site",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{alfresco.protocol}}://{{alfresco.host}}:{{alfresco.port}}/alfresco/api/-default-/public/gs/versions/{{api.version}}/gs-sites/{{ig.site.id}}",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46YWRtaW4=",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Delete GS Site"
+			},
+			"response": []
+		}
+	]
+}
